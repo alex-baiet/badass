@@ -160,7 +160,7 @@ class DialogBADASS:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/dialog_badass/BADASS.png'
+        icon_path = ':/plugins/dialog_badass/img/icon.png'
         self.add_action(
             icon_path,
             text=self.tr(u'BADASS Extension'),
@@ -197,6 +197,8 @@ class DialogBADASS:
             self.homeWin.createBut.clicked.connect(self.loadCreateDBUI)
             self.homeWin.modifyBut.clicked.connect(self.loadModifyDBUI)
             self.homeWin.closeBut.clicked.connect(self.homeWin.close)
+            
+            self.createWin.backBut.clicked.connect(self.loadHomeUI)
 
         QgsMessageLog.logMessage("FJKQSLFJLKQDFJLKQSDFJLMDSQ COME ONNNNNNNNNNN", "test")
 
@@ -205,19 +207,19 @@ class DialogBADASS:
         self.currentWin.show()
         # Run the dialog event loop
 
-        #Si li bouton correspondant à "Ouvrir une base existante"
-        #On appele la méthode ouvrir_base_existante
-        #self.win.pushButton.clicked.connect(self.win.ouvrir_base_existante)
-        #Si li bouton correspondant à "Créer une nouvelle base"
-        #On appele la méthode creer_nouvelle_base
-        #self.win.pushButton_2.clicked.connect(self.win.creer_nouvelle_base)
-
         result = self.homeWin.exec_()
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
+        
+    def loadHomeUI(self):
+        """Ouvre la page d'accueil.
+        """
+        self.currentWin.close()
+        self.currentWin = self.homeWin
+        self.currentWin.show()
         
     def loadCreateDBUI(self):
         """Ouvre la fenêtre de création de base de données.
