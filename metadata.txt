@@ -7,7 +7,7 @@ name=Dialog BADASS
 qgisMinimumVersion=3.0
 description=Extention permettant l'accès à l'interface BADASS
 version=0.2
-author=Alexandre HUMEAU, Alex BAIET
+author=Alexandre HUMEAU, Emma CHAPUIS, Alex BAIET
 email=alexandre.humeau1@gmail.com, alex.baiet3@gmail.com
 
 about=Cette extension permet de créer et éditer et consulter une base de données BADASS dans QGIS.
