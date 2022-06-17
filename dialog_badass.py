@@ -29,6 +29,8 @@ from .resources import *
 import os.path
 from qgis.core import QgsMessageLog, Qgis
 from .home import Home
+from .modify_db import ModifyDB
+from .create_db import CreateDB
 
 class DialogBADASS:
     """QGIS Plugin Implementation."""
@@ -177,7 +179,6 @@ class DialogBADASS:
                 action)
             self.iface.removeToolBarIcon(action)
 
-
     def run(self):
         """Run method that performs all the real work"""
 
@@ -185,12 +186,23 @@ class DialogBADASS:
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
         if self.first_start == True:
             self.first_start = False
-            self.win = Home()
+            # Page d'accueil
+            self.homeWin = Home()
+            # Page de création de bdd
+            self.createWin = CreateDB()
+            # Page de modification de bdd
+            self.modifyWin = ModifyDB()
+            
+            # Création de toutes les actionsw onClick
+            self.homeWin.createBut.clicked.connect(self.loadCreateDBUI)
+            self.homeWin.modifyBut.clicked.connect(self.loadModifyDBUI)
+            self.homeWin.closeBut.clicked.connect(self.homeWin.close)
 
         QgsMessageLog.logMessage("FJKQSLFJLKQDFJLKQSDFJLMDSQ COME ONNNNNNNNNNN", "test")
 
         # show the dialog
-        self.win.show()
+        self.currentWin = self.homeWin
+        self.currentWin.show()
         # Run the dialog event loop
 
         #Si li bouton correspondant à "Ouvrir une base existante"
@@ -200,9 +212,24 @@ class DialogBADASS:
         #On appele la méthode creer_nouvelle_base
         #self.win.pushButton_2.clicked.connect(self.win.creer_nouvelle_base)
 
-        result = self.win.exec_()
+        result = self.homeWin.exec_()
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
+        
+    def loadCreateDBUI(self):
+        """Ouvre la fenêtre de création de base de données.
+        """
+        self.currentWin.close()
+        self.currentWin = self.createWin
+        self.currentWin.show()
+        
+    def loadModifyDBUI(self):
+        """Ouvre la fenêtre de modification de base de données.
+        """
+        self.currentWin.close()
+        self.currentWin = self.modifyWin
+        self.currentWin.show()
+        
