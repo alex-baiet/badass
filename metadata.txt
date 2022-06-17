@@ -6,14 +6,14 @@
 name=Dialog BADASS
 qgisMinimumVersion=3.0
 description=Extention permettant l'accès à l'interface BADASS
-version=0.1
-author=Alexandre Humeau
-email=alexandre.humeau1@gmail.com
+version=0.2
+author=Alexandre HUMEAU, Alex BAIET
+email=alexandre.humeau1@gmail.com, alex.baiet3@gmail.com
 
-about=Cette extension doit permettre : * de créer la base de données et son architecture * d'ouvrir une base de données BADASS existante * d'ajouter des modules facultatifs en fonction du contexte archéologique (extensions) qui ajouteront des tables et peut-être des triggers à la base d'origine * de consulter les données via des formulaires mais sans empêcher l'utilisation normale de QGIS * de permettre, via les formulaires, une navigation de saisie dans la base de données
+about=Cette extension permet de créer et éditer et consulter une base de données BADASS dans QGIS.
 
 tracker=http://bugs
-repository=http://repo
+repository=https://github.com/alex-baiet/badass
 # End of mandatory metadata
 
 # Recommended items:
@@ -40,7 +40,7 @@ deprecated=False
 # plugin_dependencies=
 
 Category of the plugin: Raster, Vector, Database or Web
-# category=
+# category=Database
 
 # If the plugin can run on QGIS Server.
 server=False
