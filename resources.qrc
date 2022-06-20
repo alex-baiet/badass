@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/plugins/dialog_badass">
       <include location="resources.qrc"/>
-        <file>BADASS.png</file>
+        <file>icon.png</file>
         <file>BADASS_logo_full.png</file>
     </qresource>
 </RCC>
