@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>508</width>
-    <height>204</height>
+    <width>484</width>
+    <height>151</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,7 +23,10 @@
    <item>
     <widget class="QLabel" name="logoFull">
      <property name="text">
-      <string>TextLabel</string>
+      <string>Plugin BADASS</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>

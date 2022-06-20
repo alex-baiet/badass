@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>491</width>
-    <height>229</height>
+    <width>484</width>
+    <height>182</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,9 +21,12 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="logoFull">
      <property name="text">
-      <string>TextLabel</string>
+      <string>Plugin BADASS</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>

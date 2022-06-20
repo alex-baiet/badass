@@ -24,14 +24,14 @@
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
-# Initialize Qt resources from file resources.py
 from qgis.core import QgsMessageLog, Qgis
 import os.path
-from .resources import *
-
+# Initialize Qt resources from file resources.py
+# from .resources import *
 from .view.home import Home
 from .view.modify_db import ModifyDB
 from .view.create_db import CreateDB
+from .py.helper import Helper
 
 class DialogBADASS:
     """QGIS Plugin Implementation."""
@@ -158,10 +158,11 @@ class DialogBADASS:
 
         return action
 
+
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/dialog_badass/BADASS.png'
+        icon_path = Helper.get_file_path("file/icon.png")
         self.add_action(
             icon_path,
             text=self.tr(u'BADASS Extension'),
@@ -179,6 +180,7 @@ class DialogBADASS:
                 self.tr(u'&Dialog BADASS'),
                 action)
             self.iface.removeToolBarIcon(action)
+
 
     def run(self):
         """Run method that performs all the real work"""
@@ -198,11 +200,16 @@ class DialogBADASS:
             self.home_win.btnCreate.clicked.connect(self.load_create_db_ui)
             self.home_win.btnModify.clicked.connect(self.load_modify_db_ui)
             self.home_win.btnClose.clicked.connect(self.home_win.close)
+            self.home_win.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
             
             self.create_win.btnBack.clicked.connect(self.load_home_ui)
+            self.create_win.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
+            
             self.modify_win.btnBack.clicked.connect(self.load_home_ui)
+            self.modify_win.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
 
-        #QgsMessageLog.logMessage("FJKQSLFJLKQDFJLKQSDFJLMDSQ COME ONNNNNNNNNNN", "test")
+        Helper.test()
+        # QgsMessageLog.logMessage(Helper.get_file_path("logo_full.png"), "test")
 
         # show the dialog
         self.current_win = self.home_win
@@ -216,18 +223,21 @@ class DialogBADASS:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
-        
+
+
     def load_home_ui(self):
         """Ouvre la fenêtre d'accueil."""
         self.current_win.close()
         self.current_win = self.home_win
         self.current_win.show()
-        
+
+
     def load_create_db_ui(self):
         """Ouvre la fenêtre de création de base de données."""
         self.current_win.close()
         self.current_win = self.create_win
         self.current_win.show()
+
 
     def load_modify_db_ui(self):
         """Ouvre la fenêtre de modification de base de données."""
