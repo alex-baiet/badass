@@ -194,12 +194,12 @@ class DialogBADASS:
             self.modify_win = ModifyDB()
             
             # Création de toutes les actionsw onClick
-            self.home_win.createBut.clicked.connect(self.loadCreateDBUI)
-            self.home_win.modifyBut.clicked.connect(self.loadModifyDBUI)
-            self.home_win.closeBut.clicked.connect(self.home_win.close)
+            self.home_win.btnCreate.clicked.connect(self.load_create_db_ui)
+            self.home_win.btnModify.clicked.connect(self.load_modify_db_ui)
+            self.home_win.btnClose.clicked.connect(self.home_win.close)
             
-            self.create_win.btnBack.clicked.connect(self.loadHomeUI)
-            self.modify_win.btnBack.clicked.connect(self.loadHomeUI)
+            self.create_win.btnBack.clicked.connect(self.load_home_ui)
+            self.modify_win.btnBack.clicked.connect(self.load_home_ui)
 
         #QgsMessageLog.logMessage("FJKQSLFJLKQDFJLKQSDFJLMDSQ COME ONNNNNNNNNNN", "test")
 
@@ -216,19 +216,19 @@ class DialogBADASS:
             # substitute with your code.
             pass
         
-    def loadHomeUI(self):
+    def load_home_ui(self):
         """Ouvre la fenêtre d'accueil."""
         self.current_win.close()
         self.current_win = self.home_win
         self.current_win.show()
         
-    def loadCreateDBUI(self):
+    def load_create_db_ui(self):
         """Ouvre la fenêtre de création de base de données."""
         self.current_win.close()
         self.current_win = self.create_win
         self.current_win.show()
 
-    def loadModifyDBUI(self):
+    def load_modify_db_ui(self):
         """Ouvre la fenêtre de modification de base de données."""
         self.current_win.close()
         self.current_win = self.modify_win

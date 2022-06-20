@@ -35,7 +35,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QPushButton" name="modifyBut">
+        <widget class="QPushButton" name="btnModify">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -48,14 +48,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="createBut">
+        <widget class="QPushButton" name="btnCreate">
          <property name="text">
           <string>Créer une nouvelle base</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="closeBut">
+        <widget class="QPushButton" name="btnClose">
          <property name="text">
           <string>Fermer</string>
          </property>
