@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
-    <height>221</height>
+    <width>508</width>
+    <height>273</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,14 +19,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <property name="layoutDirection">
-   <enum>Qt::LeftToRight</enum>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>BADASS</string>
+      <string>TextLabel</string>
      </property>
     </widget>
    </item>
@@ -35,7 +32,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="dbPathLab">
+        <widget class="QLabel" name="label_2">
          <property name="text">
           <string>Chemin de création de la base de données (.sqlite)</string>
          </property>
@@ -44,10 +41,10 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLineEdit" name="dbPathInput"/>
+          <widget class="QLineEdit" name="lineEdit"/>
          </item>
          <item>
-          <widget class="QPushButton" name="dbPathBut">
+          <widget class="QPushButton" name="pushButton">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -71,7 +68,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QLabel" name="qgzPathLab">
+        <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Chemin de création du projet (.qgz)</string>
          </property>
@@ -80,10 +77,10 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLineEdit" name="qgzPathInput"/>
+          <widget class="QLineEdit" name="lineEdit_2"/>
          </item>
          <item>
-          <widget class="QPushButton" name="qgzPathBut">
+          <widget class="QPushButton" name="pushButton_2">
            <property name="minimumSize">
             <size>
              <width>30</width>
@@ -107,89 +104,76 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
-       </property>
        <item>
         <widget class="QLabel" name="label_4">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
          <property name="text">
           <string>EXTENSIONS</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="offTheDeadCheck">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>20</height>
-          </size>
-         </property>
+        <widget class="QCheckBox" name="checkBox">
          <property name="text">
           <string>Off the Dead</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="atHomeCheck">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>20</height>
-          </size>
-         </property>
+        <widget class="QCheckBox" name="checkBox_2">
          <property name="text">
           <string>At Home</string>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>10</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="backBut">
-     <property name="maximumSize">
-      <size>
-       <width>100</width>
-       <height>16777215</height>
-      </size>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="text">
-      <string>Retour</string>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

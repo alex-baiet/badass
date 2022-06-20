@@ -27,7 +27,7 @@ tags=python
 
 homepage=http://homepage
 category=Plugins
-icon=img/icon.png
+icon=BADASS.png
 # experimental flag
 experimental=False
 
