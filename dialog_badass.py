@@ -8,8 +8,8 @@
                               -------------------
         begin                : 2021-04-12
         git sha              : $Format:%H$
-        copyright            : (C) 2021 by Alexandre Humeau
-        email                : alexandre.humeau1@gmail.com
+        copyright            : (C) 2021-2022 by Alexandre Humeau, Alex Baiet
+        email                : alexandre.humeau1@gmail.com, alex.baiet3@gmail.com
  ***************************************************************************/
 
 /***************************************************************************
