@@ -83,7 +83,7 @@
           <widget class="QLineEdit" name="editQgzPath"/>
          </item>
          <item>
-          <widget class="QPushButton" name="BtnQgzPath">
+          <widget class="QPushButton" name="btnQgzPath">
            <property name="minimumSize">
             <size>
              <width>30</width>

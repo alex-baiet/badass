@@ -1,6 +1,6 @@
 import re
 from qgis.PyQt.QtGui import QPixmap
-from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.PyQt.QtWidgets import QFileDialog, QLineEdit
 from qgis.core import QgsApplication, QgsMessageLog
 import os
 from .db import DB
@@ -42,11 +42,29 @@ class Helper:
         pixmap = pixmap_o.scaled(w, h)
         return pixmap
 
-    def save_output_file(self):
+    def save_output_file():
         """Permet de selectionner un fichier et de récupérer son chemin."""
         filename, _filter = QFileDialog.getSaveFileName(caption="Sélectionner un fichier", filter='SQLite (*.sqlite)')
         #retoune le chemin du fichier
         return filename
+    
+    
+    def select_file_to_lineedit(title: str, filter: str, fileend: str, lineedit: QLineEdit):
+        """
+        Permet de sélectionner un chemin pour un nouveau fichier, et de le mettre dans le lineedit.
+        Args:
+            title (str): Titre du popup
+            filter (str): Filtre des fichiers (exemple: "Texte (*.txt)"
+            fileend (str): Terminaison du fichier
+            lineedit (QLineEdit): QLineEdit à remplir
+        """
+        filename, filt = QFileDialog.getSaveFileName(caption=title, filter=filter)
+        if len(filename) > 0:
+            if not filename.endswith(fileend):
+                filename += fileend
+            QgsMessageLog.logMessage("Filename : "+filename, "test")
+            lineedit.setText(filename)
+        
 
     ############################################################
     #

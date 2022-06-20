@@ -4,6 +4,8 @@ import os
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtWidgets import QLineEdit, QFileDialog
+from qgis.core import QgsMessageLog
 from .helper import Helper
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -13,9 +15,10 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
     """
     Page de création d'une nouvelle base de donnée.
     """
-
     def __init__(self, parent=None):
         super(CreateDB, self).__init__(parent)
         self.setupUi(self)
 
         self.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
+        self.btnDbPath.clicked.connect(lambda: Helper.select_file_to_lineedit("Sélectionner un fichier", "Base SQLite (*.sqlite)", ".sqlite", self.editDbPath))
+        self.btnQgzPath.clicked.connect(lambda: Helper.select_file_to_lineedit("Sélectionner un fichier", "Projet QGIS (*.qgz)", ".qgz", self.editQgzPath))

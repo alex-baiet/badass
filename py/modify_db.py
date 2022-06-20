@@ -19,3 +19,4 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
 
         self.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
+        self.btnDbPath.clicked.connect(lambda: Helper.select_file_to_lineedit("Sélectionner un fichier", "Base SQLite (*.sqlite)", ".sqlite", self.editDbPath))
