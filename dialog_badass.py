@@ -187,49 +187,50 @@ class DialogBADASS:
         if self.first_start == True:
             self.first_start = False
             # Page d'accueil
-            self.homeWin = Home()
+            self.home_win = Home()
             # Page de création de bdd
-            self.createWin = CreateDB()
+            self.create_win = CreateDB()
             # Page de modification de bdd
-            self.modifyWin = ModifyDB()
+            self.modify_win = ModifyDB()
             
             # Création de toutes les actionsw onClick
-            self.homeWin.createBut.clicked.connect(self.loadCreateDBUI)
-            self.homeWin.modifyBut.clicked.connect(self.loadModifyDBUI)
-            self.homeWin.closeBut.clicked.connect(self.homeWin.close)
+            self.home_win.createBut.clicked.connect(self.loadCreateDBUI)
+            self.home_win.modifyBut.clicked.connect(self.loadModifyDBUI)
+            self.home_win.closeBut.clicked.connect(self.home_win.close)
+            
+            self.create_win.btnBack.clicked.connect(self.loadHomeUI)
+            self.modify_win.btnBack.clicked.connect(self.loadHomeUI)
 
-        QgsMessageLog.logMessage("FJKQSLFJLKQDFJLKQSDFJLMDSQ COME ONNNNNNNNNNN", "test")
+        #QgsMessageLog.logMessage("FJKQSLFJLKQDFJLKQSDFJLMDSQ COME ONNNNNNNNNNN", "test")
 
         # show the dialog
-        self.currentWin = self.homeWin
-        self.currentWin.show()
+        self.current_win = self.home_win
+        self.current_win.show()
+        
         # Run the dialog event loop
-
-        #Si li bouton correspondant à "Ouvrir une base existante"
-        #On appele la méthode ouvrir_base_existante
-        #self.win.pushButton.clicked.connect(self.win.ouvrir_base_existante)
-        #Si li bouton correspondant à "Créer une nouvelle base"
-        #On appele la méthode creer_nouvelle_base
-        #self.win.pushButton_2.clicked.connect(self.win.creer_nouvelle_base)
-
-        result = self.homeWin.exec_()
+        result = self.home_win.exec_()
+        
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
         
-    def loadCreateDBUI(self):
-        """Ouvre la fenêtre de création de base de données.
-        """
-        self.currentWin.close()
-        self.currentWin = self.createWin
-        self.currentWin.show()
+    def loadHomeUI(self):
+        """Ouvre la fenêtre d'accueil."""
+        self.current_win.close()
+        self.current_win = self.home_win
+        self.current_win.show()
         
+    def loadCreateDBUI(self):
+        """Ouvre la fenêtre de création de base de données."""
+        self.current_win.close()
+        self.current_win = self.create_win
+        self.current_win.show()
+
     def loadModifyDBUI(self):
-        """Ouvre la fenêtre de modification de base de données.
-        """
-        self.currentWin.close()
-        self.currentWin = self.modifyWin
-        self.currentWin.show()
+        """Ouvre la fenêtre de modification de base de données."""
+        self.current_win.close()
+        self.current_win = self.modify_win
+        self.current_win.show()
         
