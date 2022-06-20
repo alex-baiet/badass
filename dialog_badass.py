@@ -25,12 +25,13 @@ from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 # Initialize Qt resources from file resources.py
-from .resources import *
-import os.path
 from qgis.core import QgsMessageLog, Qgis
-from .home import Home
-from .modify_db import ModifyDB
-from .create_db import CreateDB
+import os.path
+from .resources import *
+
+from .view.home import Home
+from .view.modify_db import ModifyDB
+from .view.create_db import CreateDB
 
 class DialogBADASS:
     """QGIS Plugin Implementation."""
