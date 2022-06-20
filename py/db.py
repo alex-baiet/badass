@@ -6,6 +6,10 @@ import helper
 from PyQt5.QtSql import QSqlDatabase
 #On import les class pour l'intansiation des autres fenetre
 
+"""
+Facilite la création et gestion d'une base de données sqlite.
+"""
+
 #https://www.opensourceforu.com/2016/10/file-search-with-python/
 def create_bdd(bdd_path):
     try:

@@ -2,6 +2,10 @@ import re
 from qgis.core import QgsApplication
 import os
 
+"""
+Contient des fonctions aux utilités très diverses.
+"""
+
 def get_file_path(name_file):
     """
     Renvoie le chemin absolue du fichier.
