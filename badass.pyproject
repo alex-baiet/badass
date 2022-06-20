@@ -1,3 +1,3 @@
 {
-    "files": ["view/create_db.ui", "view/home.ui", "view/modify_db.ui"]
+    "files": ["py/create_db.ui", "py/home.ui", "py/modify_db.ui"]
 }

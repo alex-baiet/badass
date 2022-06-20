@@ -28,9 +28,9 @@ from qgis.core import QgsMessageLog, Qgis
 import os.path
 # Initialize Qt resources from file resources.py
 # from .resources import *
-from .view.home import Home
-from .view.modify_db import ModifyDB
-from .view.create_db import CreateDB
+from .py.home import Home
+from .py.modify_db import ModifyDB
+from .py.create_db import CreateDB
 from .py.helper import Helper
 
 class DialogBADASS:
@@ -200,13 +200,10 @@ class DialogBADASS:
             self.home_win.btnCreate.clicked.connect(self.load_create_db_ui)
             self.home_win.btnModify.clicked.connect(self.load_modify_db_ui)
             self.home_win.btnClose.clicked.connect(self.home_win.close)
-            self.home_win.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
             
             self.create_win.btnBack.clicked.connect(self.load_home_ui)
-            self.create_win.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
             
             self.modify_win.btnBack.clicked.connect(self.load_home_ui)
-            self.modify_win.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
 
         Helper.test()
         # QgsMessageLog.logMessage(Helper.get_file_path("logo_full.png"), "test")

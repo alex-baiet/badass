@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>484</width>
-    <height>151</height>
+    <height>182</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -70,6 +70,39 @@
          </item>
         </layout>
        </item>
+       <item>
+        <widget class="QLabel" name="labQgzPath">
+         <property name="text">
+          <string>Chemin de création du projet (.qgz)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLineEdit" name="editQgzPath"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="BtnQgzPath">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </item>
      <item>
@@ -82,7 +115,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checOffTheDead">
+        <widget class="QCheckBox" name="checkOffTheDead">
          <property name="text">
           <string>Off the Dead</string>
          </property>

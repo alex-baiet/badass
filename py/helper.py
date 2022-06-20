@@ -1,7 +1,9 @@
 import re
 from qgis.PyQt.QtGui import QPixmap
+from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.core import QgsApplication, QgsMessageLog
 import os
+from .db import DB
 
 class Helper:
     """
@@ -9,7 +11,6 @@ class Helper:
     """
     def test():
         QgsMessageLog.logMessage(Helper.get_file_path("logo_full.png"), "test")
-
 
     def get_file_path(filename) -> str:
         """
@@ -20,7 +21,6 @@ class Helper:
             str: Chemin absolue
         """
         return os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), filename)
-
 
     def get_plugin_file_path(filename) -> str:
         """_summary_
@@ -42,14 +42,20 @@ class Helper:
         pixmap = pixmap_o.scaled(w, h)
         return pixmap
 
+    def save_output_file(self):
+        """Permet de selectionner un fichier et de récupérer son chemin."""
+        filename, _filter = QFileDialog.getSaveFileName(caption="Sélectionner un fichier", filter='SQLite (*.sqlite)')
+        #retoune le chemin du fichier
+        return filename
+
     ############################################################
     #
     # FONCTIONS A TRIER
     #
     ############################################################
 
-    #Cette fonction permet de récupérer les noms de tables spatiale, afin d'ajouter des couches seulement pour les tables spatiales
     def recup_tables_spatiales(sql_code):
+        """Cette fonction permet de récupérer les noms de tables spatiale, afin d'ajouter des couches seulement pour les tables spatiales"""
         try:
             res_tables=[]
             #CREATE TABLE ([a-z_]*)\((\n {3}[1-9a-z"\'\_A-Z ,\n\(\)-]*);\nSELECT\nAddGeometryColumn
@@ -64,19 +70,19 @@ class Helper:
 
     #Le bouton Ouvrir une base existante permet l'accès à une fenêtre d'explorateur (fonction *Parcourir*)
     #pour charger le fichier .sqlite d'une précédente base.
-    def ouvrir_base_existante(self):
-        path_file = self.open_output_file()
+    def ouvrir_base_existante():
+        path_file = Helper.open_output_file()
         #Si la personne à cliquer sur annulée le chemin est vide
         if path_file!="":
             #On informe l'utilisateur que l'action est en cours
             #self.iface.messageBar().pushMessage("Information", "L'ouverture est en cours", level=Qgis.Info, duration=2)
             #On crée la connexion_bdd
-            conn = connexion_bdd(path_file)
-            db = connexion_sqldb(path_file)
+            conn = DB.connexion_bdd(path_file)
+            db = DB.connexion_sqldb(path_file)
             #On récupère le nom des tables présent dans la bdd, afin les chargers
-            res_tables = self.get_tables(conn)
-            add_layer(path_file, res_tables)
-            self.open_fenetre2(conn,db)
+            res_tables = Helper.get_tables(conn)
+            Helper.add_layer(path_file, res_tables)
+            Helper.open_fenetre2(conn,db)
 
     #une fenêtre Windows s'ouvre pour spécifier le nom du fichier et la localisation de l'enregistrement.
     def creer_nouvelle_base(self):
@@ -95,16 +101,9 @@ class Helper:
             #On appelle la fenetre suivante
             self.open_fenetre2(conn,db)
 
-    #Permet de selectionner un fichier
-    def open_output_file(self):
+    def open_output_file():
+        """Permet de selectionner un fichier"""
         filename, _filter = QFileDialog.getOpenFileName(
-            self, "Selectionner un fichier","", '*.sqlite')
-        #retoune le chemin du fichier
-        return filename
-
-    #Permet de selectionner un fichier
-    def save_output_file(self):
-        filename, _filter = QFileDialog.getSaveFileName(
             self, "Selectionner un fichier","", '*.sqlite')
         #retoune le chemin du fichier
         return filename
