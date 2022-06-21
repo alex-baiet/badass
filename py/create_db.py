@@ -21,9 +21,9 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
 
         self.logoFull.setPixmap(helper.load_pixmap("file/logo_full.png"))
-        self.btnDbPath.clicked.connect(lambda: helper.select_file_to_lineedit("Sélectionner un fichier", "Base SQLite (*.sqlite)", ".sqlite", self.editDbPath))
-        self.btnQgzPath.clicked.connect(lambda: helper.select_file_to_lineedit("Sélectionner un fichier", "Projet QGIS (*.qgz)", ".qgz", self.editQgzPath))
-        self.btnCreate.clicked.connect(lambda: self.__create_db_file())
+        self.btnDbPath.clicked.connect(lambda: helper.select_file_to_lineedit("Choisissez le chemin de la base de données", "Base SQLite (*.sqlite)", ".sqlite", self.editDbPath))
+        self.btnQgzPath.clicked.connect(lambda: helper.select_file_to_lineedit("Choisissez le chemin du projet", "Projet QGIS (*.qgz)", ".qgz", self.editQgzPath))
+        self.btnCreate.clicked.connect(self.__create_db_file)
 
     def __create_db_file(self):
         """Crée la base de données en fonction des valeurs des champs."""
@@ -35,10 +35,11 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         
         # Création bdd
         db.create_bdd(path_db)
-        self.labMsg.setText("La base de données a été créée avec succès.")
         
         # Création extensions
         if self.checkOfTheDead.isChecked():
             db.add_of_the_dead_ext(path_db)
         if self.checkAtHome.isChecked():
             db.add_at_home_ext(path_db)
+
+        self.labMsg.setText("La base de données a été créée avec succès.")

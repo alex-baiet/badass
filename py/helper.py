@@ -37,12 +37,26 @@ def load_pixmap(filename: str) -> QPixmap:
     pixmap = pixmap_o.scaled(w, h)
     return pixmap
 
-def save_output_file():
-    """Permet de selectionner un fichier et de récupérer son chemin."""
-    filename, _filter = QFileDialog.getSaveFileName(caption="Sélectionner un fichier", filter='SQLite (*.sqlite)')
-    #retoune le chemin du fichier
+def save_output_file(title: str, filter: str):
+    """
+    Permet de sélectionner un chemin de fichier à créer.
+    Args:
+        title (str): Titre du popup
+        filter (str): Filtre des fichiers (exemple: "Texte (*.txt)"
+    """
+    filename, _filter = QFileDialog.getSaveFileName(caption=title, filter=filter)
     return filename
 
+def open_output_file(title: str, filter: str):
+    """
+    Permet de sélectionner un chemin de fichier existant.
+    Args:
+        title (str): Titre du popup
+        filter (str): Filtre des fichiers (exemple: "Texte (*.txt)"
+    """
+    filename, _filter = QFileDialog.getOpenFileName(caption="Selectionner un fichier", filter='SQLite (*.sqlite)')
+    #retoune le chemin du fichier
+    return filename
 
 def select_file_to_lineedit(title: str, filter: str, fileend: str, lineedit: QLineEdit):
     """
@@ -57,17 +71,17 @@ def select_file_to_lineedit(title: str, filter: str, fileend: str, lineedit: QLi
     if len(filename) > 0:
         if not filename.endswith(fileend):
             filename += fileend
-        QgsMessageLog.logMessage("Filename : "+filename, "test")
         lineedit.setText(filename)
-    
 
-#################################
-#       FONCTIONS A TRIER       #
-#################################
-
-def open_output_file():
-    """Permet de selectionner un fichier"""
-    filename, _filter = QFileDialog.getOpenFileName(
-        self, "Selectionner un fichier","", '*.sqlite')
-    #retoune le chemin du fichier
-    return filename
+def open_file_to_lineedit(title: str, filter: str, lineedit: QLineEdit):
+    """
+    Permet de sélectionner un chemin pour un fichier existant, et de le mettre dans le lineedit.
+    Args:
+        title (str): Titre du popup
+        filter (str): Filtre des fichiers (exemple: "Texte (*.txt)"
+        fileend (str): Terminaison du fichier
+        lineedit (QLineEdit): QLineEdit à remplir
+    """
+    filename, filt = QFileDialog.getOpenFileName(caption=title, filter=filter)
+    if len(filename) > 0:
+        lineedit.setText(filename)
