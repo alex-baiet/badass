@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>BADASS - Modifier une base de données</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
