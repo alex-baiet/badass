@@ -3,6 +3,7 @@ import os
 import sqlite3
 import sqlite3 as lite
 from PyQt5.QtSql import QSqlDatabase
+from .helper import Helper
 #On import les class pour l'intansiation des autres fenetre
 
 
@@ -27,7 +28,7 @@ class DB:
         sql="SELECT InitSpatialMetaData(1)"
         cur.execute(sql)
         #Permet de récuperer le nom du fichier qui créer le code sql
-        path_sql_file=helper.get_file_path('sql_create_code.sql')
+        path_sql_file=Helper.get_file_path('sql_create_code.sql')
 
         #Execute le code sql
         with open(path_sql_file, "r", encoding="utf-8") as sql_file:

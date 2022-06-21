@@ -3,7 +3,6 @@ from qgis.PyQt.QtGui import QPixmap
 from qgis.PyQt.QtWidgets import QFileDialog, QLineEdit
 from qgis.core import QgsApplication, QgsMessageLog
 import os
-from .db import DB
 
 class Helper:
     """
