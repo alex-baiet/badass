@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
+    <width>479</width>
     <height>207</height>
    </rect>
   </property>
@@ -132,9 +132,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkOffTheDead">
+        <widget class="QCheckBox" name="checkOfTheDead">
          <property name="text">
-          <string>Off the Dead</string>
+          <string>Of the Dead</string>
          </property>
         </widget>
        </item>
@@ -142,6 +142,9 @@
         <widget class="QCheckBox" name="checkAtHome">
          <property name="text">
           <string>At Home</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
          </property>
         </widget>
        </item>

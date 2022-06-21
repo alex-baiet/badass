@@ -36,3 +36,9 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         # Création bdd
         db.create_bdd(path_db)
         self.labMsg.setText("La base de données a été créée avec succès.")
+        
+        # Création extensions
+        if self.checkOfTheDead.isChecked():
+            db.add_of_the_dead_ext(path_db)
+        if self.checkAtHome.isChecked():
+            db.add_at_home_ext(path_db)
