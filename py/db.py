@@ -76,41 +76,17 @@ def __exec_sql(db_path: str, sql_path: str):
     # Fermeture connexion
     cur.close()
     conn.close()
-    
 
-#########################
-#       NON TESTÉ       #
-#########################
+def connect_db(db_path):
+    conn = sqlite3.connect(db_path)
+    # On charge le mode spatiale également lors de la connexion
+    conn.enable_load_extension(True)
+    sql='SELECT load_extension("mod_spatialite")'
+    conn.execute(sql)
+    return conn
 
-def connexion_bdd(bdd_path):
-    try:
-        #
-        conn = sqlite3.connect(bdd_path)
-        #On charge le mode spatiale également lors de la connexion
-        conn.enable_load_extension(True)
-        sql='SELECT load_extension("mod_spatialite")'
-        conn.execute(sql)
-        #
-        return conn
-    except Exception as e:
-        raise
-
-#Cette connexion permet de utliser le model sql avec les QTableView
-def connexion_sqldb(path_file):
-    #
+def connect_db_qt(db_path):
+    """Cette connexion permet de utliser le model sql avec les QTableView"""
     db = QSqlDatabase.addDatabase("QSQLITE")
-    db.setDatabaseName(path_file)
+    db.setDatabaseName(db_path)
     return db
-
-
-def get_name_colonne(cur,colonne_name):
-    try:
-        sql = "PRAGMA table_info("+colonne_name+");"
-        cur.execute(sql)
-        res=cur.fetchall()
-        colonne_names=[]
-        for element in res:
-            colonne_names.append(element[1])
-        return colonne_names
-    except Exception as e:
-        raise
