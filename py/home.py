@@ -4,7 +4,7 @@ import os
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from .helper import Helper
+from . import helper
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'home.ui'))
@@ -18,4 +18,4 @@ class Home(QtWidgets.QDialog, FORM_CLASS):
         super(Home, self).__init__(parent)
         self.setupUi(self)
         
-        self.logoFull.setPixmap(Helper.load_pixmap("file/logo_full.png"))
+        self.logoFull.setPixmap(helper.load_pixmap("file/logo_full.png"))
