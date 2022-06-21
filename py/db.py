@@ -12,34 +12,31 @@ class DB:
     """
     #https://www.opensourceforu.com/2016/10/file-search-with-python/
     def create_bdd(bdd_path):
-        try:
-            conn = sqlite3.connect(bdd_path)
-            cur = conn.cursor()
-            #Création de la table
-            #ajout de l'extension mod_spatialite sinon la fonction AddGeometryColumn n'est pas reconnue
-            conn.enable_load_extension(True)
-            sql="SELECT load_extension('mod_spatialite')"
-            conn.execute(sql)
-            #Ajout les tables de métadonnées spatiales
-            """si l'argument optionnel transaction est défini sur TRUE,
-            toute l'opération sera traitée comme une seule transaction (plus rapide)
-            le paramètre par défaut est transaction = FALSE (plus lent, mais plus sûr)
-            http://www.gaia-gis.it/gaia-sins/spatialite-sql-latest.html"""
-            sql="SELECT InitSpatialMetaData(1)"
-            cur.execute(sql)
-            #Permet de récuperer le nom du fichier qui créer le code sql
-            path_sql_file=helper.get_file_path('sql_create_code.sql')
+        conn = sqlite3.connect(bdd_path)
+        cur = conn.cursor()
+        #Création de la table
+        #ajout de l'extension mod_spatialite sinon la fonction AddGeometryColumn n'est pas reconnue
+        conn.enable_load_extension(True)
+        sql="SELECT load_extension('mod_spatialite')"
+        conn.execute(sql)
+        #Ajout les tables de métadonnées spatiales
+        """si l'argument optionnel transaction est défini sur TRUE,
+        toute l'opération sera traitée comme une seule transaction (plus rapide)
+        le paramètre par défaut est transaction = FALSE (plus lent, mais plus sûr)
+        http://www.gaia-gis.it/gaia-sins/spatialite-sql-latest.html"""
+        sql="SELECT InitSpatialMetaData(1)"
+        cur.execute(sql)
+        #Permet de récuperer le nom du fichier qui créer le code sql
+        path_sql_file=helper.get_file_path('sql_create_code.sql')
 
-            #Execure le code sql
-            with open(path_sql_file, "r", encoding="utf-8") as sql_file:
-                    sql_code = sql_file.read()
-                    #On execute le code sql
-                    cur.executescript(sql_code)
-            #Fermeture de la connexion
-            cur.close()
-            conn.close()
-        except Exception as e:
-            raise
+        #Execute le code sql
+        with open(path_sql_file, "r", encoding="utf-8") as sql_file:
+            sql_code = sql_file.read()
+            #On execute le code sql
+            cur.executescript(sql_code)
+        #Fermeture de la connexion
+        cur.close()
+        conn.close()
 
     def connexion_bdd(bdd_path):
         try:
