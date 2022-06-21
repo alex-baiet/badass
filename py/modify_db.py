@@ -10,9 +10,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'modify_db.ui'))
 
 class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
-    """
-    Page de modification des extensions d'une base de données existante.
-    """
+    """Page de modification des extensions d'une base de données existante."""
 
     def __init__(self, parent=None):
         super(ModifyDB, self).__init__(parent)
