@@ -90,17 +90,10 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLineEdit" name="editQgzPath">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
+          <widget class="QLineEdit" name="editQgzPath"/>
          </item>
          <item>
           <widget class="QPushButton" name="btnQgzPath">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
            <property name="minimumSize">
             <size>
              <width>30</width>

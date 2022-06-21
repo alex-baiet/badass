@@ -6,7 +6,9 @@ import os
 
 """
 Contient des fonctions aux utilités très diverses.
+... mais actuellement plutôt orientées autour de la gestion de fichiers.
 """
+
 def get_file_path(filename) -> str:
     """
     Renvoie le chemin absolue du fichier.
