@@ -38,8 +38,8 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
 
         # Création extensions
         if checked_ofd:
-            db.add_of_the_dead_ext(path_db)
+            db.exec_sql_file(path_db, db.SQL_OF_THE_DEAD)
         if checked_ah:
-            db.add_at_home_ext(path_db)
+            db.exec_sql_file(path_db, db.SQL_AT_HOME)
 
         self.labMsg.setText("La base de données a été modifiée avec succès.")

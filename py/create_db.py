@@ -48,13 +48,13 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
 
         ### Création bdd ###
         path_db = os.path.join(path_dir, DEFAULT_DB_NAME)
-        db.create_db(path_db)
+        db.exec_sql_file(path_db, db.SQL_MAIN)
         # Création extensions
         if self.checkOfTheDead.isChecked():
-            db.add_of_the_dead_ext(path_db)
+            db.exec_sql_file(path_db, db.SQL_OF_THE_DEAD)
         if self.checkAtHome.isChecked():
-            db.add_at_home_ext(path_db)
-        
+            db.exec_sql_file(path_db, db.SQL_AT_HOME)
+
         ### Création qgz ###
         qgz.create_qgz(os.path.join(path_dir, name) + ".qgz")
         
