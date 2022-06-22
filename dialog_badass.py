@@ -31,7 +31,7 @@ import os.path
 from .py.home import Home
 from .py.modify_db import ModifyDB
 from .py.create_db import CreateDB
-from .py import helper
+from .py import files
 
 DEBUG=False
 
@@ -164,7 +164,7 @@ class DialogBADASS:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = helper.get_file_path("file/icon.png")
+        icon_path = files.get_file_path("file/icon.png")
         self.add_action(
             icon_path,
             text=self.tr(u'BADASS Extension'),
@@ -207,7 +207,7 @@ class DialogBADASS:
             
             self.modify_win.btnBack.clicked.connect(self.load_home_ui)
 
-        # QgsMessageLog.logMessage(helper.get_file_path("logo_full.png"), "test")
+        # QgsMessageLog.logMessage(files.get_file_path("logo_full.png"), "test")
 
         # show the dialog
         if DEBUG:

@@ -2,7 +2,7 @@
 import os
 import sqlite3
 from PyQt5.QtSql import QSqlDatabase
-from . import helper
+from . import files
 #On import les class pour l'intansiation des autres fenetre
 
 """
@@ -25,7 +25,7 @@ def create_db(db_path: str):
     cur.execute(sql)
     
     # Récupération code SQL
-    path_sql_file = helper.get_file_path('file/sql/main_structure.sql')
+    path_sql_file = files.get_file_path('file/sql/main_structure.sql')
     with open(path_sql_file, "r", encoding="utf-8") as sql_file:
         sql_code = sql_file.read()
         sqls = sql_code.split(sep="/***/")
@@ -43,11 +43,11 @@ def create_db(db_path: str):
 
 def add_of_the_dead_ext(db_path: str):
     """Ajoute l'extension Of The Dead à la base de données du chemin."""    
-    __exec_sql(db_path, helper.get_file_path('file/sql/of_the_dead.sql'))
+    __exec_sql(db_path, files.get_file_path('file/sql/of_the_dead.sql'))
 
 def add_at_home_ext(db_path: str):
     """Ajoute l'extension At Home à la base de données du chemin. Le fichier SQL nécessaire n'existe pas encore..."""    
-    __exec_sql(db_path, helper.get_file_path('file/sql/at_home.sql'))
+    __exec_sql(db_path, files.get_file_path('file/sql/at_home.sql'))
 
 def __exec_sql(db_path: str, sql_path: str):
     """

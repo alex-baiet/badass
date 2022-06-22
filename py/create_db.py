@@ -6,7 +6,7 @@ from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QLineEdit, QFileDialog, QLabel
 from qgis.core import QgsMessageLog
-from . import helper
+from . import files
 from . import db
 from . import qgz
 
@@ -26,8 +26,8 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         super(CreateDB, self).__init__(parent)
         self.setupUi(self)
 
-        self.logoFull.setPixmap(helper.load_pixmap("file/logo_full.png"))
-        self.btnDirPath.clicked.connect(lambda: helper.save_dir_to_lineedit("Choisissez le dossier du projet", self.editDirPath))
+        self.logoFull.setPixmap(files.load_pixmap("file/logo_full.png"))
+        self.btnDirPath.clicked.connect(lambda: files.save_dir_to_lineedit("Choisissez le dossier du projet", self.editDirPath))
         self.btnCreate.clicked.connect(self.__generate_files)
 
     def __generate_files(self):

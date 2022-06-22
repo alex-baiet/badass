@@ -4,7 +4,7 @@ import os
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from . import helper
+from . import files
 from . import db
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -17,8 +17,8 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
         super(ModifyDB, self).__init__(parent)
         self.setupUi(self)
 
-        self.logoFull.setPixmap(helper.load_pixmap("file/logo_full.png"))
-        self.btnDbPath.clicked.connect(lambda: helper.open_file_to_lineedit("Sélectionner un fichier", "Base SQLite (*.sqlite)", self.editDbPath))
+        self.logoFull.setPixmap(files.load_pixmap("file/logo_full.png"))
+        self.btnDbPath.clicked.connect(lambda: files.open_file_to_lineedit("Sélectionner un fichier", "Base SQLite (*.sqlite)", self.editDbPath))
         self.btnModify.clicked.connect(self.__modify_db_file)
 
     def __modify_db_file(self):

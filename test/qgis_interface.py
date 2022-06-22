@@ -65,7 +65,7 @@ class QgisInterface(QObject):
         :param layers: list<QgsMapLayer> list of map layers that were added
 
         .. note:: The QgsInterface api does not include this method,
-            it is added here as a helper to facilitate testing.
+            it is added here as a help to facilitate testing.
         """
         #LOGGER.debug('addLayers called on qgis_interface')
         #LOGGER.debug('Number of layers being added: %s' % len(layers))
@@ -87,7 +87,7 @@ class QgisInterface(QObject):
         :param layer: list<QgsMapLayer> list of map layers that were added
 
         .. note: The QgsInterface api does not include this method, it is added
-                 here as a helper to facilitate testing.
+                 here as a help to facilitate testing.
 
         .. note: The addLayer method was deprecated in QGIS 1.8 so you should
                  not need this method much.
