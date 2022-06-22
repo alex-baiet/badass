@@ -33,6 +33,8 @@ from .py.modify_db import ModifyDB
 from .py.create_db import CreateDB
 from .py import helper
 
+DEBUG=False
+
 class DialogBADASS:
     """QGIS Plugin Implementation."""
 
@@ -208,6 +210,11 @@ class DialogBADASS:
         # QgsMessageLog.logMessage(helper.get_file_path("logo_full.png"), "test")
 
         # show the dialog
+        if DEBUG:
+            from .py.test import Test
+            win = Test()
+            win.show()
+
         self.current_win = self.home_win
         self.current_win.show()
         
