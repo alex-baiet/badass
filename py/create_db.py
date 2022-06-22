@@ -37,6 +37,10 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
             # Informations manquantes
             self.labMsg.setText("Veuillez d'abord choisir un dossier.")
             return
+        
+        if not os.path.exists(path_dir):
+            self.labMsg.setText("Le dossier sélectionné n'existe pas.")
+            return
 
         name = self.editName.text()
         if len(name) == 0:
