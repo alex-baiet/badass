@@ -56,7 +56,17 @@ def open_output_file(title: str, filter: str):
         title (str): Titre du popup
         filter (str): Filtre des fichiers (exemple: "Texte (*.txt)"
     """
-    filename, _filter = QFileDialog.getOpenFileName(caption="Selectionner un fichier", filter='SQLite (*.sqlite)')
+    filename, _filter = QFileDialog.getOpenFileName(caption=title, filter=filter)
+    #retoune le chemin du fichier
+    return filename
+
+def save_output_dir(title: str):
+    """
+    Permet de sélectionner un chemin de dossier existant.
+    Args:
+        title (str): Titre du popup
+    """
+    filename, _filter = QFileDialog.getExistingDirectory(caption=title)
     #retoune le chemin du fichier
     return filename
 
@@ -81,9 +91,19 @@ def open_file_to_lineedit(title: str, filter: str, lineedit: QLineEdit):
     Args:
         title (str): Titre du popup
         filter (str): Filtre des fichiers (exemple: "Texte (*.txt)"
-        fileend (str): Terminaison du fichier
         lineedit (QLineEdit): QLineEdit à remplir
     """
     filename, filt = QFileDialog.getOpenFileName(caption=title, filter=filter)
     if len(filename) > 0:
         lineedit.setText(filename)
+
+def save_dir_to_lineedit(title: str, lineedit: QLineEdit):
+    """
+    Permet de sélectionner un chemin pour un fichier existant, et de le mettre dans le lineedit.
+    Args:
+        title (str): Titre du popup
+        lineedit (QLineEdit): QLineEdit à remplir
+    """
+    dirname = QFileDialog.getExistingDirectory(caption=title)
+    if len(dirname) > 0:
+        lineedit.setText(dirname)

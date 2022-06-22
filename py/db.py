@@ -10,7 +10,7 @@ Facilite la création et gestion d'une base de données sqlite.
 """
 
 #https://www.opensourceforu.com/2016/10/file-search-with-python/
-def create_bdd(db_path: str):
+def create_db(db_path: str):
     """Crée une nouvelle base de données au chemin indiqué sans extension."""
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()

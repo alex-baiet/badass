@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
+    <width>449</width>
     <height>207</height>
    </rect>
   </property>
@@ -45,19 +45,19 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="labDbPath">
+        <widget class="QLabel" name="labDirPath">
          <property name="text">
-          <string>Chemin de création de la base de données (.sqlite)</string>
+          <string>Dossier du nouveau projet</string>
          </property>
         </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLineEdit" name="editDbPath"/>
+          <widget class="QLineEdit" name="editDirPath"/>
          </item>
          <item>
-          <widget class="QPushButton" name="btnDbPath">
+          <widget class="QPushButton" name="btnDirPath">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -81,33 +81,18 @@
         </layout>
        </item>
        <item>
-        <widget class="QLabel" name="labQgzPath">
+        <widget class="QLabel" name="labName">
          <property name="text">
-          <string>Chemin de création du projet (.qgz)</string>
+          <string>Nom du nouveau projet</string>
          </property>
         </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLineEdit" name="editQgzPath"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnQgzPath">
-           <property name="minimumSize">
-            <size>
-             <width>30</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>16777215</height>
-            </size>
-           </property>
+          <widget class="QLineEdit" name="editName">
            <property name="text">
-            <string>...</string>
+            <string>Badass</string>
            </property>
           </widget>
          </item>

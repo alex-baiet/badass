@@ -13,6 +13,11 @@ from . import qgz
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'create_db.ui'))
 
+# Nom par défaut du fichier qgz
+DEFAULT_QGZ_NAME = "Badass"
+# Nom par défaut de la nouvelle bdd
+DEFAULT_DB_NAME = "badass_otd_v2.sqlite"
+
 class CreateDB(QtWidgets.QDialog, FORM_CLASS):
     """
     Page de création d'une nouvelle base de donnée.
@@ -22,33 +27,32 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
 
         self.logoFull.setPixmap(helper.load_pixmap("file/logo_full.png"))
-        self.btnDbPath.clicked.connect(lambda: helper.select_file_to_lineedit("Choisissez le chemin de la base de données", "Base SQLite (*.sqlite)", ".sqlite", self.editDbPath))
-        self.btnQgzPath.clicked.connect(lambda: helper.select_file_to_lineedit("Choisissez le chemin du projet", "Projet QGIS (*.qgz)", ".qgz", self.editQgzPath))
+        self.btnDirPath.clicked.connect(lambda: helper.save_dir_to_lineedit("Choisissez le dossier du projet", self.editDirPath))
         self.btnCreate.clicked.connect(self.__generate_files)
 
     def __generate_files(self):
         """Crée la base de données en fonction des valeurs des champs."""
-        path_db = self.editDbPath.text()
-        path_qgz = self.editQgzPath.text()
-        if len(path_db) == 0 and len(path_qgz) == 0:
+        path_dir = self.editDirPath.text()
+        if len(path_dir) == 0:
             # Informations manquantes
-            self.labMsg.setText("Veuillez d'abord remplir un champ.")
+            self.labMsg.setText("Veuillez d'abord choisir un dossier.")
             return
-        
-        ### Création bdd ###
-        if len(path_db) > 0:
-            db.create_bdd(path_db)
-            
-            # Création extensions
-            if self.checkOfTheDead.isChecked():
-                db.add_of_the_dead_ext(path_db)
-            if self.checkAtHome.isChecked():
-                db.add_at_home_ext(path_db)
 
-            self.labMsg.setText("La base de données a été créée avec succès.")
+        name = self.editName.text()
+        if len(name) == 0:
+            name = DEFAULT_QGZ_NAME
+
+        ### Création bdd ###
+        path_db = os.path.join(path_dir, DEFAULT_DB_NAME)
+        db.create_db(path_db)
+        # Création extensions
+        if self.checkOfTheDead.isChecked():
+            db.add_of_the_dead_ext(path_db)
+        if self.checkAtHome.isChecked():
+            db.add_at_home_ext(path_db)
         
         ### Création qgz ###
-        if len(path_qgz) > 0:
-            qgz.create_qgz(path_qgz)
-            self.labMsg.setText("Le projet QGZ a été créé avec succès.")
+        qgz.create_qgz(os.path.join(path_dir, name) + ".qgz")
+        
+        self.labMsg.setText("Le projet a été créé avec succès.")
 
