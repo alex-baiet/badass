@@ -27,9 +27,15 @@ def create_db(db_path: str):
     # Récupération code SQL
     path_sql_file = helper.get_file_path('file/sql/main_structure.sql')
     with open(path_sql_file, "r", encoding="utf-8") as sql_file:
-        sql_code = sql_file.read()        
+        sql_code = sql_file.read()
+        sqls = sql_code.split(sep="/***/")
         # Création bdd
-        cur.executescript(sql_code)
+        for sql in sqls:
+            try:
+                cur.executescript(sql)
+            except sqlite3.OperationalError:
+                raise Exception("Une erreur est survenu avec la requete suivante : '"+sql+"'")
+                
 
     #Fermeture de la connexion
     cur.close()
