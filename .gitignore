@@ -132,3 +132,4 @@ dmypy.json
 .idea/
 db/
 py/test.*
+file/original/
