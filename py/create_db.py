@@ -16,7 +16,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 # Nom par défaut du fichier qgz
 DEFAULT_QGZ_NAME = "Badass"
 # Nom par défaut de la nouvelle bdd
-DEFAULT_DB_NAME = "badass_v2_vierge.sqlite"
+DEFAULT_DB_NAME = "badass"
 
 class CreateDB(QtWidgets.QDialog, FORM_CLASS):
     """
@@ -42,21 +42,22 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
             self.labMsg.setText("Le dossier sélectionné n'existe pas.")
             return
 
-        name = self.editName.text()
-        if len(name) == 0:
-            name = DEFAULT_QGZ_NAME
+        qgz_name = self.editQgzName.text()
+        if len(qgz_name) == 0:
+            qgz_name = DEFAULT_QGZ_NAME
 
-        ### Création bdd ###
-        path_db = os.path.join(path_dir, DEFAULT_DB_NAME)
-        db.exec_sql_file(path_db, db.SQL_MAIN)
-        # Création extensions
+        db_name = self.editDbName.text()
+        if len(db_name) == 0:
+            db_name = DEFAULT_DB_NAME
+
+        sql_files = [db.SQL_MAIN]
         if self.checkOfTheDead.isChecked():
-            db.exec_sql_file(path_db, db.SQL_OF_THE_DEAD)
+            sql_files.append(db.SQL_OF_THE_DEAD)
         if self.checkAtHome.isChecked():
-            db.exec_sql_file(path_db, db.SQL_AT_HOME)
+            sql_files.append(db.SQL_AT_HOME)
 
         ### Création qgz ###
-        qgz.create_qgz(os.path.join(path_dir, name) + ".qgz")
-        
+        qgz.create_project(path_dir, qgz_name + ".qgz", db_name + ".sqlite", sql_files)
+
         self.labMsg.setText("Le projet a été créé avec succès.")
 

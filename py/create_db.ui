@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>422</width>
-    <height>207</height>
+    <width>459</width>
+    <height>259</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -81,22 +81,32 @@
         </layout>
        </item>
        <item>
-        <widget class="QLabel" name="labName">
+        <widget class="QLabel" name="labQgzName">
          <property name="text">
           <string>Nom du nouveau projet</string>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLineEdit" name="editName">
-           <property name="text">
-            <string>Badass</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QLineEdit" name="editQgzName">
+         <property name="text">
+          <string>Badass</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labDbName">
+         <property name="text">
+          <string>Nom de la base de données</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="editDbName">
+         <property name="text">
+          <string>badass</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -125,6 +135,19 @@
           <bool>false</bool>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>30</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
