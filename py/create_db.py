@@ -16,7 +16,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 # Nom par défaut du fichier qgz
 DEFAULT_QGZ_NAME = "Badass"
 # Nom par défaut de la nouvelle bdd
-DEFAULT_DB_NAME = "badass_otd_v2.sqlite"
+DEFAULT_DB_NAME = "badass_v2_vierge.sqlite"
 
 class CreateDB(QtWidgets.QDialog, FORM_CLASS):
     """
