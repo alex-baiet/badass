@@ -16,10 +16,9 @@ Le projet est un plugin QGIS en *Python*, ses interfaces générées avec *QTCre
 Voici les différentes parties :
 
 - Le script principal est `dialog_badass.py`, qui est exécuté au lancement du plugin. Il charge les différentes fenêtres et initialise les composants de navigation;
-- Les différentes fenêtres visuelles sont les fichiers en `py/*.ui`, éditable avec QTCreator. Chacun des fichiers ont un script `.py` attaché du même nom, permettant de créer des instances de ces fenêtres et d'initialiser ces composants;
+- Les différentes fenêtres visuelles sont les fichiers en `py/*.ui`, éditable avec *QTCreator*. Chacun des fichiers ont un script `.py` attaché du même nom, permettant de créer des instances de ces fenêtres et d'initialiser ces composants;
 - Les autres scripts dans `py` contiennent des fonctions diverses;
 - Le fichier `file/model.qgz` et ceux contenu dans le dossier `file/sql` servent à créer les nouveaux projets BADASS;
-- Le dossier `file/original` contient un exemple d'utilisation du projet BADASS. Il n'est pas utiliser par le code;
 
 ## Histoire
 
