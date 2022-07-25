@@ -4,6 +4,7 @@ import os
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtCore import QTimer
 from qgis.PyQt.QtWidgets import QLineEdit, QFileDialog, QLabel
 from qgis.core import QgsMessageLog
 from . import files
@@ -57,7 +58,13 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
             sql_files.append(db.SQL_AT_HOME)
 
         ### Création qgz ###
-        qgz.create_project(path_dir, qgz_name + ".qgz", db_name + ".sqlite", sql_files)
-
-        self.labMsg.setText("Le projet a été créé avec succès.")
+        
+        timer = QTimer()
+        qgz.create_project(
+            dir_path=path_dir,
+            qgz_name=qgz_name + ".qgz",
+            db_name=db_name + ".sqlite",
+            sql_files=sql_files,
+            bar=self.bar,
+            on_end=lambda: self.labMsg.setText("Le projet a été créé avec succès."))
 

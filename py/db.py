@@ -3,7 +3,9 @@ import os
 import sqlite3
 from PyQt5.QtSql import QSqlDatabase
 from qgis.PyQt import QtWidgets
+from qgis.core import QgsMessageLog
 from . import files
+from . import process
 from . import helper
 #On import les class pour l'intansiation des autres fenetre
 
@@ -14,6 +16,8 @@ Facilite la création et gestion d'une base de données sqlite.
 SQL_MAIN = files.get_file_path('file/sql/main_structure.sql')
 SQL_OF_THE_DEAD = files.get_file_path('file/sql/of_the_dead.sql')
 SQL_AT_HOME = files.get_file_path('file/sql/at_home.sql')
+
+SQL_SEPARATOR = "/*--*/"
 
 def exec_sql_file(db_path: str, sql_path: str):
     """
@@ -34,6 +38,49 @@ def exec_sql_file(db_path: str, sql_path: str):
     # Fermeture connexion
     cur.close()
     conn.close()
+    
+def generate_sql_tasks(db_path: str, sql_path: str): 
+    """
+    Génère une liste de lambda pour exécuter le fichier de sql_path part à part.
+    Args:
+        db_path (str): Chemin de la base de données
+        ext_path (str): Chemin du script d'extension au format SQL
+        
+    Returns:
+        list: Liste des différentes tâches pour exécuter tout le script SQL.
+    """
+    global conn, cur
+    tasks = []
+    # Ouverture connexion
+    tasks.append(lambda: __init_exec_sql(db_path))
+    
+    # Récupération code SQL
+    with open(sql_path, "r", encoding="utf-8") as sql_file:
+        sql_code = sql_file.read()
+        # sql_parts = sql_code.split(SQL_SEPARATOR)
+        sql_parts = helper.split_sql(sql_code)
+        for part in sql_parts:
+            # Exécution d'une partie du SQL
+            tasks.append(lambda part=part: __exec_sql_part(part))
+
+    # Fermeture connexion
+    tasks.append(__close_exec_sql)
+    return tasks
+
+#region Lamdbas
+def __init_exec_sql(db_path: str):
+    global conn, cur
+    conn, cur = connect_db(db_path)
+    
+def __exec_sql_part(sql: str):
+    global cur
+    cur.executescript(sql)
+
+def __close_exec_sql():
+    global conn, cur
+    cur.close()
+    conn.close()
+#endregion
 
 def connect_db(db_path: str) -> [sqlite3.Connection, sqlite3.Cursor]:
     """
@@ -88,7 +135,7 @@ def exec_sql_files_async(db_path: str, sql_paths: list, bar: QtWidgets.QProgress
     tasks.append(lambda: __close(conn, cur))
     
     # Exécution du code
-    helper.exec_tasks(tasks, bar)
+    process.exec_tasks(tasks, bar)
 
 def __close(conn: sqlite3.Connection, cur: sqlite3.Cursor):
     cur.close()

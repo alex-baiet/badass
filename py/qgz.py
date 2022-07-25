@@ -3,16 +3,25 @@ Module d'édition d'un fichier QGZ
 """
 
 from qgis.core import QgsMessageLog
+from qgis.PyQt.QtWidgets import QProgressBar
 
 import os
 import shutil
 from zipfile import ZipFile
 from . import files
 from . import db
+from . import process
+from . import helper
 
 ORGINAL_DB_NAME = "badass_v2_vierge.sqlite"
 
-def create_project(dir_path: str, qgz_name: str, db_name: str, sql_files: str):
+def create_project(
+    dir_path: str,
+    qgz_name: str,
+    db_name: str,
+    sql_files: list,
+    bar: QProgressBar = None,
+    on_end = lambda: None):
     """Créer un nouveau projet avec sa base de données.
 
     Args:
@@ -20,17 +29,25 @@ def create_project(dir_path: str, qgz_name: str, db_name: str, sql_files: str):
         qgz_name (str): Nom du fichier .qgz généré
         db_name (str): Nom du fichier de la base de données générée
         sql_files (str): Liste des fichiers sql à exécuter pour générer la base de données
+        bar (QProgressBar): Barre visuelle à mettre à jour
+        on_end (lamdba): Fonction exécuté à la fin si aucun problème n'est survenu
     """
     qgz_path = os.path.join(dir_path, qgz_name)
     db_path = os.path.join(dir_path, db_name)
     
     # Création de la bdd
+    tasks = []
     for file in sql_files:
-        db.exec_sql_file(db_path, file)
+        tasks.extend(db.generate_sql_tasks(db_path, file))
         
     # Création du qgz
-    __create_qgz(qgz_path)
-    __edit_qgz_db(qgz_path, db_name)
+    tasks.append(lambda: __create_qgz(qgz_path))
+    tasks.append(lambda: __edit_qgz_db(qgz_path, db_name))
+
+    tasks.append(on_end)
+
+    # Exécution de tout le code pour TOUT créer    
+    process.exec_tasks(tasks, bar)
 
 def __create_qgz(dest_path: str):
     """

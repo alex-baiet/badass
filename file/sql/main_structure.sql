@@ -1084,7 +1084,7 @@ INSERT INTO "thesaurus_badass" ("id_thes", "tabl_thes", "field_thes", "val_thes"
 
 ----------------------------------------------------------------------------------------------------------------------
 -- LES TRIGGERS --
-
+ 
 -- pour les préfixes :
 -- trg pour TRIGGER
 -- a pour AFTER
@@ -1427,7 +1427,7 @@ FOR EACH ROW
 WHEN (NEW."jru_typrel" like 'égale' OR NEW."jru_typrel" like 'équivalente' OR NEW."jru_typrel" like 'synchrone')
 BEGIN
    INSERT INTO j_rel_us ("jru_us1","jru_us2","jru_typrel","jru_incert") VALUES (NEW."jru_us2", NEW."jru_us1", NEW."jru_typrel", NEW."jru_incert");
-END;*/
+end;*/
 
 -- après la suppression d'une relation entre US
 CREATE TRIGGER trgad_j_rel_us 

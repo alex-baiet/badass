@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>459</width>
-    <height>259</height>
+    <width>461</width>
+    <height>290</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,6 +37,13 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="bar">
+     <property name="value">
+      <number>0</number>
      </property>
     </widget>
    </item>
