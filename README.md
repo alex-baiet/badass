@@ -9,8 +9,6 @@ Le plugin BADASS facilite la création et la modification d'un projet BADASS :
 
 ## Structure
 
-**ATTENTION**, Cette partie n'est que pour ceux qui souhaitent éditer/comprendre le code de ce projet.
-
 Le projet est un plugin QGIS en *Python*, ses interfaces générées avec *QTCreator*.
 
 Voici les différentes parties :
@@ -22,7 +20,7 @@ Voici les différentes parties :
 
 ## Histoire
 
-Ce projet est un plugin QGIS commencé par **Alexandre HAMEAU** et **Emma CHAPUIS** en 2021 et continué par **Alex BAIET** (moi).
+Ce projet est un plugin QGIS commencé par **Alexandre HAMEAU** et **Emma CHAPUIS** en 2021 et continué par **Alex BAIET** (moi) en 2022.
 
 Alexandre HAMEAU et Emma CHAPUIS ont commencé le plugin durant leurs stages en ajoutant la création d'une base de données automatisée et en commençant la création de nombreuses interfaces d'édition de la base de données. A la fin de leur stages, le plugin n'était pas bien fonctionnel.
 
