@@ -1,5 +1,6 @@
 """
-Permet de réaliser des actions asynchrone.
+Permet de réaliser des actions asynchrone,
+évitant le bloquage de la fenêtre lors d'exécution de code lourd.
 """
 
 from qgis.PyQt.QtWidgets import QProgressBar
