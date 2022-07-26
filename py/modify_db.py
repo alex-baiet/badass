@@ -23,6 +23,12 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
         self.btnDbPath.clicked.connect(lambda: files.open_file_to_lineedit("Sélectionner un fichier", "Base SQLite (*.sqlite)", self.editDbPath))
         self.btnModify.clicked.connect(self.__modify_db_file)
 
+    def show(self):
+        super(ModifyDB, self).show()
+        # Suppression ancien texte
+        self.labMsg.setText("")
+        self.bar.setValue(0)
+
     def __modify_db_file(self):
         """Crée la base de données en fonction des valeurs des champs."""
         path_db = self.editDbPath.text()
@@ -38,7 +44,11 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
             self.labMsg.setText("Veuillez sélectionner au moins une extension à ajouter.")
             return
 
-        # Création extensions
+        # Suppression ancien message affiché
+        self.labMsg.setText("")
+        self.bar.setValue(0)
+
+        # Préparation création extensions SQL
         tasks = []
         if checked_ofd:
             tasks.extend(db.generate_sql_tasks(path_db, db.SQL_OF_THE_DEAD))
@@ -47,4 +57,5 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
 
         tasks.append(lambda: self.labMsg.setText("La base de données a été modifiée avec succès."))
         
+        # Création extensions
         process.exec_tasks(tasks, self.bar)

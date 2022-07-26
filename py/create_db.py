@@ -10,6 +10,7 @@ from qgis.core import QgsMessageLog
 from . import files
 from . import db
 from . import qgz
+from . import helper
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'create_db.ui'))
@@ -31,6 +32,12 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         self.btnDirPath.clicked.connect(lambda: files.save_dir_to_lineedit("Choisissez le dossier du projet", self.editDirPath))
         self.btnCreate.clicked.connect(self.__generate_files)
 
+    def show(self):
+        super(CreateDB, self).show()
+        # Suppression ancien texte
+        self.labMsg.setText("")
+        self.bar.setValue(0)
+
     def __generate_files(self):
         """Crée la base de données en fonction des valeurs des champs."""
         path_dir = self.editDirPath.text()
@@ -42,7 +49,12 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         if not os.path.exists(path_dir):
             self.labMsg.setText("Le dossier sélectionné n'existe pas.")
             return
+        
+        # Suppression ancien texte
+        self.labMsg.setText("")
+        self.bar.setValue(0)
 
+        # Définition nom des fichiers
         qgz_name = self.editQgzName.text()
         if len(qgz_name) == 0:
             qgz_name = DEFAULT_QGZ_NAME
@@ -51,15 +63,14 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         if len(db_name) == 0:
             db_name = DEFAULT_DB_NAME
 
+        # Préparation requetes SQL
         sql_files = [db.SQL_MAIN]
         if self.checkOfTheDead.isChecked():
             sql_files.append(db.SQL_OF_THE_DEAD)
         if self.checkAtHome.isChecked():
             sql_files.append(db.SQL_AT_HOME)
 
-        ### Création qgz ###
-        
-        timer = QTimer()
+        # Création qgz
         qgz.create_project(
             dir_path=path_dir,
             qgz_name=qgz_name + ".qgz",
