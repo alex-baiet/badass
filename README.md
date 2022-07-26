@@ -1,5 +1,8 @@
 # BADASS
 
+This plugin only target french archaeologicals organizations, so most of his content is only in french without any translation.
+It is used to generate projects with a database from specific models.
+
 ## Description
 
 Le plugin BADASS facilite la création et la modification d'un projet BADASS :
