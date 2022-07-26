@@ -6,6 +6,8 @@ from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from . import files
 from . import db
+from . import process
+from . import helper
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'modify_db.ui'))
@@ -37,9 +39,12 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
             return
 
         # Création extensions
+        tasks = []
         if checked_ofd:
-            db.exec_sql_file(path_db, db.SQL_OF_THE_DEAD)
+            tasks.extend(db.generate_sql_tasks(path_db, db.SQL_OF_THE_DEAD))
         if checked_ah:
-            db.exec_sql_file(path_db, db.SQL_AT_HOME)
+            tasks.extend(db.generate_sql_tasks(path_db, db.SQL_AT_HOME))
 
-        self.labMsg.setText("La base de données a été modifiée avec succès.")
+        tasks.append(lambda: self.labMsg.setText("La base de données a été modifiée avec succès."))
+        
+        process.exec_tasks(tasks, self.bar)

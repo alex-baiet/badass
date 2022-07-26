@@ -55,7 +55,7 @@ def generate_sql_tasks(db_path: str, sql_path: str):
     # Récupération code SQL
     with open(sql_path, "r", encoding="utf-8") as sql_file:
         sql_code = sql_file.read()
-        sql_parts = helper.split_sql(sql_code)
+        sql_parts = split_sql(sql_code)
         for part in sql_parts:
             # Exécution d'une partie du SQL
             tasks.append(lambda part=part: __exec_sql_part(part))
@@ -110,40 +110,56 @@ def connect_db_qt(db_path):
     db.setDatabaseName(db_path)
     return db
 
-################
-# Fonctions de requetes sql non fonctionnels
-################
-
-def exec_sql_files_async(db_path: str, sql_paths: list, bar: QtWidgets.QProgressBar):
+def split_sql(content: str):
     """
-    Exécute les requêtes SQL des fichiers données asynchronement.
-    Si la bdd n'existe pas, elle sera créé.
-    Args:
-        db_path (str): Fichier de la bdd
-        sql_paths (list): Liste des fichiers sql à exécuter
-        bar (QtWidgets.QProgressBar): Barre de progression à mettre à jour.
+    Sépare un script SQL en sous-requêtes.
     """
-    # Connexion à la bdd
-    conn, cur = connect_db(db_path)
+    comment = False
+    comment_s = False # Lecture d'un commentaire sur une ligne
+    comment_l = False # Lecture d'un commentaire sur plusieurs lignes
+    last_split_i = 0
+    checking_end = False
+    waiting_end_semicolon = False
+    statements = []
+    for i in range(len(content)):
+        char = content[i]
+        char2 = content[i:i+2]
+        if char == " " or char == "\t": continue
 
-    # Récupération code SQL
-    tasks = []
-    for path in sql_paths:
-        with open(path, "r", encoding="utf-8") as sql_file:
-            sql_code = sql_file.read()
-            tasks.append(lambda: __exec_sql(sql_code, cur))
-    tasks.append(lambda: __close(conn, cur))
-    
-    # Exécution du code
-    process.exec_tasks(tasks, bar)
+        # Gestion commentaire
+        if not comment and char2 == "--":
+            comment_s = True
+            comment = True
+            continue
+        if not comment and char2 == "/*":
+            comment_l = True
+            comment = True
+            continue
+        if comment_s and char == "\n" :
+            comment_s = False
+            comment = False
+            continue
+        if comment_l and content[i-1:i+1] == "*/":
+            comment_l = False
+            comment = False
+            continue
+        if char == "\n": continue
 
-def __close(conn: sqlite3.Connection, cur: sqlite3.Cursor):
-    cur.close()
-    conn.close()
-    
-def __exec_sql(sql: str, cur: sqlite3.Cursor):
-    """Exécute un script SQL."""
-    try:
-        cur.execute(sql)
-    except sqlite3.OperationalError:
-        raise Exception("Une erreur est survenu avec la requete suivante : '"+sql+"'")
+        # Vérification transaction en cours
+        if not comment and not checking_end and content[i:i+5] == "BEGIN":
+            checking_end = True
+            continue
+        if not comment and checking_end and content[i:i+3] == "END":
+            checking_end = False
+            continue
+
+        # Séparation de la requête
+        if not comment and not checking_end and char == ";":
+            statements.append(content[last_split_i:i+1])
+            last_split_i = i+1
+            continue
+
+    # Ajout dernière requête
+    statements.append(content[last_split_i:len(content)])
+
+    return statements

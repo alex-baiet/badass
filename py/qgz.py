@@ -11,7 +11,6 @@ from zipfile import ZipFile
 from . import files
 from . import db
 from . import process
-from . import helper
 
 ORGINAL_DB_NAME = "badass_v2_vierge.sqlite"
 
