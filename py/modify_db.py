@@ -47,6 +47,7 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
         # Suppression ancien message affiché
         self.labMsg.setText("")
         self.bar.setValue(0)
+        self.btnModify.setEnabled(False)
 
         # Préparation création extensions SQL
         tasks = []
@@ -56,6 +57,7 @@ class ModifyDB(QtWidgets.QDialog, FORM_CLASS):
             tasks.extend(db.generate_sql_tasks(path_db, db.SQL_AT_HOME))
 
         tasks.append(lambda: self.labMsg.setText("La base de données a été modifiée avec succès."))
+        tasks.append(lambda: self.btnModify.setEnabled(True))
         
         # Création extensions
         process.exec_tasks(tasks, self.bar)

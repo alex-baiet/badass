@@ -53,6 +53,7 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
         # Suppression ancien texte
         self.labMsg.setText("")
         self.bar.setValue(0)
+        self.btnCreate.setEnabled(False)
 
         # Définition nom des fichiers
         qgz_name = self.editQgzName.text()
@@ -77,5 +78,10 @@ class CreateDB(QtWidgets.QDialog, FORM_CLASS):
             db_name=db_name + ".sqlite",
             sql_files=sql_files,
             bar=self.bar,
-            on_end=lambda: self.labMsg.setText("Le projet a été créé avec succès."))
+            on_end=self.__generate_on_end)
 
+    def __generate_on_end(self):
+        """Exécuté à la fin de la création d'un projet"""
+        self.labMsg.setText("Le projet a été créé avec succès.")
+        self.btnCreate.setEnabled(True)
+        
