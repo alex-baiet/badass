@@ -33,6 +33,7 @@ def split_sql(content: str):
         char = content[i]
         char2 = content[i:i+2]
         if char == " " or char == "\t": continue
+
         # Gestion commentaire
         if not comment and char2 == "--":
             comment_s = True
@@ -51,25 +52,22 @@ def split_sql(content: str):
             comment = False
             continue
         if char == "\n": continue
-        if not comment and not checking_end and char == ";":
+
+        # Vérification transaction en cours
+        if not comment and not checking_end and content[i:i+5] == "BEGIN":
             checking_end = True
             continue
         if not comment and checking_end and content[i:i+3] == "END":
-            waiting_end_semicolon = True
             checking_end = False
             continue
-        if not comment and waiting_end_semicolon and char == ";":
+
+        # Séparation de la requête
+        if not comment and not checking_end and char == ";":
             statements.append(content[last_split_i:i+1])
             last_split_i = i+1
-            waiting_end_semicolon = False
             continue
-        if not comment and checking_end:
-            # Semicolon sans END
-            statements.append(content[last_split_i:i])
-            last_split_i = i
-            checking_end = False
-            continue
+
     # Ajout dernière requête
     statements.append(content[last_split_i:len(content)])
-            
+
     return statements

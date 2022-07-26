@@ -17,8 +17,6 @@ SQL_MAIN = files.get_file_path('file/sql/main_structure.sql')
 SQL_OF_THE_DEAD = files.get_file_path('file/sql/of_the_dead.sql')
 SQL_AT_HOME = files.get_file_path('file/sql/at_home.sql')
 
-SQL_SEPARATOR = "/*--*/"
-
 def exec_sql_file(db_path: str, sql_path: str):
     """
     Exécute un script SQL dans la base de données du chemin indiqué.
@@ -57,7 +55,6 @@ def generate_sql_tasks(db_path: str, sql_path: str):
     # Récupération code SQL
     with open(sql_path, "r", encoding="utf-8") as sql_file:
         sql_code = sql_file.read()
-        # sql_parts = sql_code.split(SQL_SEPARATOR)
         sql_parts = helper.split_sql(sql_code)
         for part in sql_parts:
             # Exécution d'une partie du SQL
@@ -74,7 +71,10 @@ def __init_exec_sql(db_path: str):
     
 def __exec_sql_part(sql: str):
     global cur
-    cur.executescript(sql)
+    try:
+        cur.executescript(sql)
+    except sqlite3.OperationalError:
+        raise sqlite3.OperationalError('Exécution du SQL échoué : "'+sql+'"')
 
 def __close_exec_sql():
     global conn, cur
