@@ -128,6 +128,9 @@
        </item>
        <item>
         <widget class="QCheckBox" name="checkOfTheDead">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Of the Dead</string>
          </property>
@@ -135,11 +138,14 @@
        </item>
        <item>
         <widget class="QCheckBox" name="checkAtHome">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>At Home</string>
          </property>
          <property name="checkable">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
