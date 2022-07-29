@@ -28,3 +28,13 @@ Ce projet est un plugin QGIS commencé par **Alexandre HAMEAU** et **Emma CHAPUI
 Alexandre HAMEAU et Emma CHAPUIS ont commencé le plugin durant leurs stages en ajoutant la création d'une base de données automatisée et en commençant la création de nombreuses interfaces d'édition de la base de données. A la fin de leur stages, le plugin n'était pas bien fonctionnel.
 
 J'ai donc repris le projet et ai terminé ce plugin en juin 2022.
+
+## Mettre à jour le plugin
+
+Pour avoir les droits de modification du plugin et les identifiants pour QGIS, contactez alex.baiet3@gmail.com.
+
+Le code source est disponible sur [https://github.com/alex-baiet/badass/](https://github.com/alex-baiet/badass/), où tout l'historique des versions est disponible.
+
+Le plugin est disponible parmis les plugins officiels de QGIS. Pour modifier la version en ligne, il faut :
+- Se connecter via cette page : [https://plugins.qgis.org/accounts/login/](https://plugins.qgis.org/accounts/login/);
+- Accéder à la page suivantes : [https://plugins.qgis.org/plugins/badass/](https://plugins.qgis.org/plugins/badass/) ou les différentes versions peuvent être mis à jour.
