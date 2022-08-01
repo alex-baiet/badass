@@ -12,7 +12,7 @@ email=alexandre.humeau1@gmail.com, alex.baiet3@gmail.com
 
 about=Cette extension permet de créer et éditer une base de données BADASS dans QGIS.
 
-tracker=https://github.com/alex-baiet/badass
+tracker=https://github.com/alex-baiet/badass/issues
 repository=https://github.com/alex-baiet/badass
 # End of mandatory metadata
 
