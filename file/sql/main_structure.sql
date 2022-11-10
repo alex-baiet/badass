@@ -1,12 +1,8 @@
 /*
-
 BADASS : Base Archéologique de Données Attributaires et SpatialeS
-
 Auteurs : Caroline Font, Thomas Guillemard, Florent Mercey, Christelle Seng (cheffe d'orchestre). Inrap, 2022.
-
 Remarques diverses : 
 - Les FOREIGN KEY sont commentées afin de ne pas en subir la contrainte, mais de garder le principe du MCD
-
 */
 
 PRAGMA encoding='UTF-8';
@@ -126,7 +122,7 @@ AddGeometryColumn ('coupe_line','geometry',2154,'MULTILINESTRING','XY',0); -- mi
 -- La table coupe_poly
 DROP TABLE IF EXISTS coupe_poly;
 CREATE TABLE coupe_poly(
-   "id_poly" INTEGER PRIMARY KEY,
+   "id_cpoly" INTEGER PRIMARY KEY,
    "id_axe" INTEGER,
    "numfait" INTEGER,
    "numus" INTEGER,
@@ -169,7 +165,7 @@ CREATE TABLE t_fait(
    "dim_max" FLOAT,
    "dim_min" FLOAT,
    "epais" FLOAT,
-   "prof_haut" FLOAT,
+   "prof_cons" FLOAT,
    "periode" TEXT,
    "note" TEXT
 );
@@ -198,6 +194,7 @@ CREATE TABLE t_us(
    "dim_max" FLOAT,
    "dim_min" FLOAT,
    "prof_app" FLOAT,
+   "prof_cons" FLOAT,
    "zmin" FLOAT,
    "zmax" FLOAT,
    "epais" FLOAT,
@@ -1102,7 +1099,7 @@ CREATE TRIGGER trgai_poly_maj_t_fait /*déclaration de création d'un nouveau tr
     AFTER INSERT /*qui sera exécuté après l'ajout d'une nouvelle entité*/
     ON poly /*sur/dans la table*/
 FOR EACH ROW /*commande obligatoire : pour tous les enregistrement*/
-WHEN (NEW.typoly = 'fait') /*cette condition permet de restreindre les enregistrements concernés aux seuls 'fait' ; NEW correspond à une copie temporaire des nouveaux éléments de la table t_poly effectuée lors de l'exécution du trigger*/
+WHEN (NEW.typoly IN('fait', 'Fait')) /*cette condition permet de restreindre les enregistrements concernés aux seuls 'fait' ; NEW correspond à une copie temporaire des nouveaux éléments de la table t_poly effectuée lors de l'exécution du trigger*/
 BEGIN /* debut de l'action déclenchée*/
 UPDATE t_fait /*avec une modification de la table t_fait*/
 SET geometry = NEW.geometry /*qui redéfini la valeur du champ "geom" de la table t_fait par la valeur du champ "geom" de la copie temporaire NEW de la table t_poly*/
@@ -1127,7 +1124,7 @@ CREATE TRIGGER trgau_poly_maj_t_fait
    AFTER UPDATE /*qui sera exécuté après la modification de la géométrie d'une entité*/
    ON poly
 FOR EACH ROW
-WHEN (NEW.typoly = 'fait')
+WHEN (NEW.typoly IN('fait', 'Fait'))
 BEGIN
 UPDATE t_fait
 SET geometry = NEW.geometry
@@ -1195,7 +1192,7 @@ CREATE TRIGGER trgai_ouverture_maj_t_sondage
     AFTER INSERT 
     ON ouverture 
 FOR EACH ROW 
-WHEN (NEW.typouvert = 'sondage') 
+WHEN (NEW.typouvert IN('sondage', 'Sondage')) 
 BEGIN 
 UPDATE t_sondage 
 SET geometry = NEW.geometry 
@@ -1207,7 +1204,7 @@ CREATE TRIGGER trgai_ouverture_maj_t_tranchee
     AFTER INSERT 
     ON ouverture 
 FOR EACH ROW 
-WHEN (NEW.typouvert = 'tranchée') 
+WHEN (NEW.typouvert IN('tranchée', 'Tranchée'))
    BEGIN
    UPDATE t_tranchee
    SET geometry = NEW.geometry 
@@ -1220,7 +1217,7 @@ CREATE TRIGGER trgau_ouverture_maj_t_sondage
    AFTER UPDATE 
    ON ouverture
 FOR EACH ROW
-WHEN (NEW.typouvert = 'sondage')
+WHEN (NEW.typouvert IN('sondage', 'Sondage'))
 BEGIN
 UPDATE t_sondage
 SET geometry = NEW.geometry
@@ -1232,7 +1229,7 @@ CREATE TRIGGER trgau_ouverture_maj_t_tranchee
    AFTER UPDATE 
    ON ouverture
 FOR EACH ROW
-WHEN (NEW.typouvert = 'tranchée')
+WHEN (NEW.typouvert IN('tranchée', 'Tranchée'))
 BEGIN
 UPDATE t_tranchee
 SET geometry = NEW.geometry
@@ -1519,6 +1516,23 @@ join t_photo as p on m1."numphoto" = p."id_photo"
 group by m1."numphoto"
 order by p."id_photo";
 
+--Vue de récapitulation des US par log stratigraphique
+CREATE VIEW "vue_recap_us_log" AS 
+SELECT "numlog", GROUP_CONCAT("numus",', ') as recap_us 
+FROM j_us_log 
+GROUP BY "numlog" 
+ORDER BY "numus";
+
+/*--Vue de dessin automatique des logs stratigraphiques projetés en x,z_axe
+CREATE VIEW "vue_log_stratigraphique" AS
+SELECT t.*,l.numtr,l.zmin_log, CASE WHEN "zmin_uslog" is null THEN BuildMbr(t."numlog"-1, l."zmin_log", t."numlog"-0.75, "zmax_uslog", 2154) ELSE BuildMbr(t."numlog"-1, "zmin_uslog", t."numlog"-0.75, "zmax_uslog", 2154) END AS geometry 
+FROM j_us_log AS t JOIN t_log AS l 
+ON t."numlog" = l."numlog";
+--Interprétation de la géométrie de la vue, voir ici : http://www.gaia-gis.it/gaia-sins/spatialite-cookbook/html/sp-view.html
+INSERT INTO views_geometry_columns
+    (view_name, view_geometry, view_rowid, f_table_name, f_geometry_column, read_only)
+  VALUES ('vue_log_stratigraphique', 'geometry', 'id_us_log', 'j_us_log', 'geometry','1');*/
+
 -- Vue d'exportation de la table t_us pour le stratifiant. Manque quelques champs : FPAestime (date estimée au plus ancien de fin de formation de l'US) ; FPRestime (date estimée au plus récent de fin de formation de l'US) ; REF_PhaseDebut (n° d'ordre de la phase au plus ancien attribué à l'US) ; REF_PhaseFin (n° d'ordre de la phase au plus récent attribué à l'US). Pour ces requêtes, j'ai besoin d'aide...
 CREATE VIEW ExportUS AS
 SELECT "numus" AS ID_US, REPLACE(REPLACE( "type_us",'couche physique','couche'),'négative','négatif') AS Type_US, "datinf_interpret" AS FPA, "datsup_interpret" AS FPR
@@ -1532,9 +1546,9 @@ WHERE "typrel" IN ('sur', 'sous');
 
 -- Vue d'exportation de la table de relations stratigraphiques pour les relations horizontales. Manque le champ RelationIncertaine rempli par NULL ou '?'
 CREATE VIEW ExportSynchros AS
-SELECT DISTINCT CASE WHEN "typrel" IN ('égale','équivalente','synchrone') THEN "numus1" END AS REF_USsynchro1, CASE WHEN "typrel" IN ('égal','équivalent','synchrone') THEN "numus2" END AS REF_USsynchro2
+SELECT DISTINCT CASE WHEN "typrel" IN ('égal','équivalent','égale','équivalente','synchrone') THEN "numus1" END AS REF_USsynchro1, CASE WHEN "typrel" IN ('égale','équivalente','égal','équivalent','synchrone') THEN "numus2" END AS REF_USsynchro2
 FROM j_rel_us
-WHERE "typrel" IN ('égal','équivalent','synchrone');
+WHERE "typrel" IN ('égale','équivalente','égal','équivalent','synchrone');
 
 -- Vue de détection des erreurs d'écritures de relations stratigraphiques : sur une même US ou relations contradictoires 
 CREATE VIEW erreur_saisie_strati AS
@@ -1543,4 +1557,3 @@ FROM ExportRelations AS r, ExportSynchros AS s
 WHERE r."REF_USanterieure" = r."REF_USposterieure"
 OR r."REF_USanterieure"||r."REF_USposterieure" = r."REF_USposterieure"||r."REF_USanterieure"
 OR s."REF_USsynchro1" = s."REF_USsynchro2";
-

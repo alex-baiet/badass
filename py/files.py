@@ -33,8 +33,8 @@ def load_pixmap(filename: str) -> QPixmap:
     # pixmap_o = QPixmap(':/plugins/dialog_badass/BADASS_logo_full.png')
     pixmap_o = QPixmap(get_file_path(filename))
     # pixmap_o = QPixmap(get_plugin_file_path(filename))
-    w=pixmap_o.width()/40
-    h=pixmap_o.height()/40
+    w=pixmap_o.width()//40
+    h=pixmap_o.height()//40
     pixmap = pixmap_o.scaled(w, h)
     return pixmap
 
