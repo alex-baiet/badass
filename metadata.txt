@@ -4,7 +4,7 @@
 
 [general]
 name=BADASS
-qgisMinimumVersion=3.26
+qgisMinimumVersion=3.22
 description=Cette extension permet la création d'un fichier de base de données spatiales au format SpatiaLite pour l'enregistrement des données archéologiques (Badass) à l'Inrap, accompagné d'un fichier de projet .QGZ pré-paramétré.
 version=1.31
 author=Alex BAIET, Alexandre HUMEAU, Emma CHAPUIS 

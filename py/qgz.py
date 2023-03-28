@@ -38,7 +38,7 @@ def create_project(
     tasks = []
     for file in sql_files:
         tasks.extend(db.generate_sql_tasks(db_path, file))
-        
+
     # Création du qgz
     tasks.append(lambda: __create_qgz(qgz_path))
     tasks.append(lambda: __edit_qgz_db(qgz_path, db_name))

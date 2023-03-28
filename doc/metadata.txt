@@ -5,12 +5,12 @@
 [general]
 name=BADASS
 qgisMinimumVersion=3.22
-description=Extension facilitant la création et édition d'un projet avec une base de données BADASS.
-version=1.1
-author=Alexandre HUMEAU, Emma CHAPUIS, Alex BAIET
-email=alexandre.humeau1@gmail.com, alex.baiet3@gmail.com
+description=Cette extension permet la création d'un fichier de base de données spatiales au format SpatiaLite pour l'enregistrement des données archéologiques (Badass) à l'Inrap, accompagné d'un fichier de projet .QGZ pré-paramétré.
+version=1.31
+author=Alex BAIET, Alexandre HUMEAU, Emma CHAPUIS 
+email=alex.baiet3@gmail.com
 
-about=Cette extension permet de créer et éditer une base de données BADASS dans QGIS.
+about=Badass (Base archéologique de données attributaires et spatiales) est une base de données spatiales développées par Caroline Font, Thomas Guillemard, Florent Mercey et Christelle Seng de l'Institut national de recherches archéologiques préventives (Inrap). Cette base de données s'appuie, d'une part, sur la structuration institutionnelle des "Six Couches" de données spatiales issues des levers topographiques (développée à l'Inrap par le réseau des référents SIG piloté par Anne Moreau), d'autre part, sur un enregistrement archéologique classique articulé autour de la stratigraphie (Galinié, Randoin 1987). Cette extension permet de générer deux fichiers : le fichier de base de données spatiales au format SpatiaLite (.sqlite) ; le projet QGIS (.qgz) qui intègre les tables, les relations et des styles qui permettent l'utilisation d'interfaces de saisie des données attributaires sous forme de formulaires. Deux extensions sont en cours de développement : Badass of the Dead : permet l’ajout de tables, de thésaurus et d’un mannequin pour la saisie et l’étude des données anthropologiques ; House of Badass : permet l’ajout de tables et de thésaurus pour la saisie et l’étude en archéologie sur le bâti. La programmation de cette extension a été assurée par Alexandre Humeau, Emma Chapuis et Alex Baiet. 
 
 tracker=https://github.com/alex-baiet/badass/issues
 repository=https://github.com/alex-baiet/badass
@@ -20,7 +20,7 @@ repository=https://github.com/alex-baiet/badass
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-# changelog=
+# changelog=modification de la vue ExportSynchros, de la couche coupe_poly, ajout d'une nouvelle vue de récapitulation des US par log, ajout en commentaire d'une nouvelle vue de visualisation des logs en x, z qui ne fonctionne pas...
 
 # Tags are comma separated with spaces allowed
 tags=python
@@ -28,7 +28,7 @@ tags=python
 homepage=https://github.com/alex-baiet/badass
 icon=icon.png
 # experimental flag
-experimental=False
+experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False

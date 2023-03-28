@@ -17,6 +17,9 @@ SQL_MAIN = files.get_file_path('file/sql/main_structure.sql')
 SQL_OF_THE_DEAD = files.get_file_path('file/sql/of_the_dead.sql')
 SQL_AT_HOME = files.get_file_path('file/sql/at_home.sql')
 
+"""Séparateur permettant de découper un script SQL en morceaux"""
+SQL_SEPARATOR = "/*--*/"
+
 def exec_sql_file(db_path: str, sql_path: str):
     """
     Exécute un script SQL dans la base de données du chemin indiqué.
@@ -55,7 +58,7 @@ def generate_sql_tasks(db_path: str, sql_path: str):
     # Récupération code SQL
     with open(sql_path, "r", encoding="utf-8") as sql_file:
         sql_code = sql_file.read()
-        sql_parts = split_sql(sql_code)
+        sql_parts = sql_code.split(SQL_SEPARATOR)
         for part in sql_parts:
             # Exécution d'une partie du SQL
             tasks.append(lambda part=part: __exec_sql_part(part))
@@ -113,6 +116,8 @@ def connect_db_qt(db_path):
 def split_sql(content: str):
     """
     Sépare un script SQL en sous-requêtes.
+    Cette fonction peut ne pas correctement fonctionner dans certains cas.
+    Est actuellement inutilisée
     """
     comment = False
     comment_s = False # Lecture d'un commentaire sur une ligne
